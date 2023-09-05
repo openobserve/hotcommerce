@@ -1,0 +1,21 @@
+# buildspec_product.yml
+
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Installing required tools..."
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/zinclabs
+  pre_build:
+    commands:
+      - echo "Installing dependencies..."
+  build:
+    commands:
+      - echo "Building Docker image..."
+      - docker build -t sample-product-service -f product/Dockerfile .
+      - docker tag sample-product-service:latest public.ecr.aws/zinclabs/sample-product-service:latest
+      - docker tag sample-product-service:latest public.ecr.aws/zinclabs/sample-product-service:$CODEBUILD_BUILD_NUMBER
+      - docker push public.ecr.aws/zinclabs/sample-product-service:latest
+      - docker push public.ecr.aws/zinclabs/sample-product-service:$CODEBUILD_BUILD_NUMBER
+
