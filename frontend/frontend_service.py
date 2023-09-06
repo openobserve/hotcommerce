@@ -10,8 +10,11 @@ templates = Jinja2Templates(directory="templates")
 
 @app.get("/item/{item_id}")
 def get_item(request: Request, item_id: int):
+    print(f"Fetching item details for item_id: {item_id}")  
     try:
+        
         url = f"{SHOP_SERVICE_URL}/shop/item/{item_id}"
+        print(f"Fetching item details from URL: {url}")
         response = requests.get(url)
         item_data = response.json()
     except requests.RequestException:
