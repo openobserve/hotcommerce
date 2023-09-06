@@ -5,15 +5,17 @@ import os
 
 app = FastAPI()
 
-SHOP_SERVICE_URL = os.environ.get('SHOP_SERVICE_URL', "http://shop-service:8002")
+SHOP_SERVICE_URL = os.environ.get('SHOP_SERVICE_URL', "http://localhost:8081")
 templates = Jinja2Templates(directory="templates")
 
 @app.get("/item/{item_id}")
 def get_item(request: Request, item_id: int):
     try:
-        response = requests.get(f"{SHOP_SERVICE_URL}/shop/item/{item_id}")
+        url = f"{SHOP_SERVICE_URL}/shop/item/{item_id}"
+        response = requests.get(url)
         item_data = response.json()
     except requests.RequestException:
+        print("Error fetching item details from URL: {url}")
         raise HTTPException(status_code=500, detail="Error fetching item details")
 
     return templates.TemplateResponse("item.html", {"request": request, "item": item_data})
