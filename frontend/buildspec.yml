@@ -14,7 +14,7 @@ phases:
   build:
     commands:
       - echo "Building Docker image..."
-      - docker build -t sample-frontend-service -f product/Dockerfile .
+      - docker build -t sample-frontend-service -f frontend/Dockerfile .
       - docker tag sample-frontend-service:latest public.ecr.aws/zinclabs/sample-frontend-service:latest
       - docker tag sample-frontend-service:latest public.ecr.aws/zinclabs/sample-frontend-service:$CODEBUILD_BUILD_NUMBER
       - docker push public.ecr.aws/zinclabs/sample-frontend-service:latest
