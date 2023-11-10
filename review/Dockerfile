@@ -9,4 +9,4 @@ COPY review/requirements.txt .
 RUN pip install --upgrade pip && \
   pip install -r requirements.txt
 
-CMD ["uvicorn", "review_service:app", "--host", "0.0.0.0", "--port", "8001"]
+CMD ["uvicorn", "review_service:app", "--host", "0.0.0.0", "--port", "8004"]

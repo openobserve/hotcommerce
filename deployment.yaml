@@ -1,3 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: review
+  namespace: hotcommerce
+spec:
+  selector:
+    app: review
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8004
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: review
+  namespace: hotcommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: review
+  template:
+    metadata:
+      labels:
+        app: review
+      # annotations:
+      #   instrumentation.opentelemetry.io/inject-python: "true"
+    spec:
+      containers:
+        - name: review
+          image: public.ecr.aws/zinclabs/sample-review-service:latest
+          ports:
+            - containerPort: 8004
+          resources:
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
 ---
 apiVersion: v1
 kind: Service
@@ -10,7 +52,7 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8000
+      targetPort: 8003
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -18,7 +60,7 @@ metadata:
   name: product
   namespace: hotcommerce
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: product
@@ -26,18 +68,17 @@ spec:
     metadata:
       labels:
         app: product
-      annotations:
-        sidecar.opentelemetry.io/inject: "true"
-        instrumentation.opentelemetry.io/inject-python: "true"
+      # annotations:
+      #   instrumentation.opentelemetry.io/inject-python: "true"
     spec:
       containers:
         - name: product
           image: public.ecr.aws/zinclabs/sample-product-service:latest
           env:
             - name: REVIEW_SERVICE_URL
-              value: "http://review:8001"
+              value: "http://review.hotcommerce.svc.cluster.local:8001"
           ports:
-            - containerPort: 8000
+            - containerPort: 8003
           resources:
             limits:
               cpu: "1"
@@ -45,50 +86,7 @@ spec:
             requests:
               cpu: "100m"
               memory: "128Mi"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: review
-  namespace: hotcommerce
-spec:
-  selector:
-    app: review
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8001
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: review
-  namespace: hotcommerce
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: review
-  template:
-    metadata:
-      labels:
-        app: review
-      annotations:
-        sidecar.opentelemetry.io/inject: "true"
-        instrumentation.opentelemetry.io/inject-python: "true"
-    spec:
-      containers:
-        - name: review
-          image: public.ecr.aws/zinclabs/sample-review-service:latest
-          ports:
-            - containerPort: 8001
-          resources:
-            limits:
-              cpu: "1"
-              memory: "512Mi"
-            requests:
-              cpu: "100m"
-              memory: "128Mi"
+
 ---
 apiVersion: v1
 kind: Service
@@ -109,7 +107,7 @@ metadata:
   name: shop
   namespace: hotcommerce
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: shop
@@ -117,16 +115,15 @@ spec:
     metadata:
       labels:
         app: shop
-      annotations:
-        sidecar.opentelemetry.io/inject: "true"
-        instrumentation.opentelemetry.io/inject-python: "true"
+      # annotations:
+      #   instrumentation.opentelemetry.io/inject-python: "true"
     spec:
       containers:
         - name: shop
           image: public.ecr.aws/zinclabs/sample-shop-service:latest
           env:
             - name: PRODUCT_SERVICE_URL
-              value: "http://product:8000"
+              value: "http://product.hotcommerce.svc.cluster.local:8003"
           ports:
             - containerPort: 8002
           resources:
@@ -148,7 +145,7 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8080
+      targetPort: 8001
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -156,7 +153,7 @@ metadata:
   name: frontend
   namespace: hotcommerce
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: frontend
@@ -164,18 +161,17 @@ spec:
     metadata:
       labels:
         app: frontend
-      annotations:
-        sidecar.opentelemetry.io/inject: "true"
-        instrumentation.opentelemetry.io/inject-python: "true"
+      # annotations:
+      #   instrumentation.opentelemetry.io/inject-python: "true"
     spec:
       containers:
         - name: frontend
           image: public.ecr.aws/zinclabs/sample-frontend-service:latest
           env:
             - name: SHOP_SERVICE_URL
-              value: "http://shop:8002"
+              value: "http://shop.hotcommerce.svc.cluster.local:8002"
           ports:
-            - containerPort: 8080
+            - containerPort: 8001
           resources:
             limits:
               cpu: "1"

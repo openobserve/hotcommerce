@@ -10,5 +10,5 @@ COPY product/requirements.txt .
 RUN pip install --upgrade pip && \
   pip install -r requirements.txt
 
-CMD ["uvicorn", "product_service:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "product_service:app", "--host", "0.0.0.0", "--port", "8003"]
 

@@ -10,5 +10,5 @@ COPY frontend/requirements.txt .
 RUN pip install --upgrade pip && \
   pip install -r requirements.txt
 
-CMD ["uvicorn", "frontend_service:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "frontend_service:app", "--host", "0.0.0.0", "--port", "8001"]
 
