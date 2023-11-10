@@ -31,6 +31,7 @@ spec:
       containers:
         - name: review
           image: public.ecr.aws/zinclabs/sample-review-service:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8004
           resources:
@@ -74,6 +75,7 @@ spec:
       containers:
         - name: product
           image: public.ecr.aws/zinclabs/sample-product-service:latest
+          imagePullPolicy: Always
           env:
             - name: REVIEW_SERVICE_URL
               value: "http://review.hotcommerce.svc.cluster.local:8001"
@@ -121,6 +123,7 @@ spec:
       containers:
         - name: shop
           image: public.ecr.aws/zinclabs/sample-shop-service:latest
+          imagePullPolicy: Always
           env:
             - name: PRODUCT_SERVICE_URL
               value: "http://product.hotcommerce.svc.cluster.local:8003"
@@ -167,6 +170,7 @@ spec:
       containers:
         - name: frontend
           image: public.ecr.aws/zinclabs/sample-frontend-service:latest
+          imagePullPolicy: Always
           env:
             - name: SHOP_SERVICE_URL
               value: "http://shop.hotcommerce.svc.cluster.local:8002"

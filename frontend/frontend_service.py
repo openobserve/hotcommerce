@@ -26,6 +26,12 @@ def get_item(request: Request, item_id: int):
 
 @app.get("/hello")
 def hello(request: Request):
+    content = {"hello": "from another world"}
+    return JSONResponse(content=content)
+
+
+@app.get("/")
+def base(request: Request):
     content = {"hello": "world"}
     return JSONResponse(content=content)
 
