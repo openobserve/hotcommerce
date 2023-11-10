@@ -12,6 +12,7 @@ templates = Jinja2Templates(directory="templates")
 
 @app.get("/item/{item_id}")
 def get_item(request: Request, item_id: int):
+    print("SHOP_SERVICE_URL: ", SHOP_SERVICE_URL)
     try:
         url = f"{SHOP_SERVICE_URL}/shop/item/{item_id}"
         response = requests.get(url)

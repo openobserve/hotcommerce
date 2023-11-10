@@ -1,0 +1,113 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/connection-proxy-header: keep-alive
+    nginx.ingress.kubernetes.io/proxy-body-size: 15m
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  name: frontend.gke.zinclabs.dev
+  namespace: hotcommerce
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: frontend.gke.zinclabs.dev
+      http:
+        paths:
+          - pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80
+            path: /
+  tls:
+    - hosts:
+        - frontend.gke.zinclabs.dev
+      secretName: frontend.gke.zinclabs.dev
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/connection-proxy-header: keep-alive
+    nginx.ingress.kubernetes.io/proxy-body-size: 15m
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  name: shop.gke.zinclabs.dev
+  namespace: hotcommerce
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: shop.gke.zinclabs.dev
+      http:
+        paths:
+          - pathType: Prefix
+            backend:
+              service:
+                name: shop
+                port:
+                  number: 80
+            path: /
+  tls:
+    - hosts:
+        - shop.gke.zinclabs.dev
+      secretName: shop.gke.zinclabs.dev
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/connection-proxy-header: keep-alive
+    nginx.ingress.kubernetes.io/proxy-body-size: 15m
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  name: product.gke.zinclabs.dev
+  namespace: hotcommerce
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: product.gke.zinclabs.dev
+      http:
+        paths:
+          - pathType: Prefix
+            backend:
+              service:
+                name: product
+                port:
+                  number: 80
+            path: /
+  tls:
+    - hosts:
+        - product.gke.zinclabs.dev
+      secretName: product.gke.zinclabs.dev
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/connection-proxy-header: keep-alive
+    nginx.ingress.kubernetes.io/proxy-body-size: 15m
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  name: review.gke.zinclabs.dev
+  namespace: hotcommerce
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: review.gke.zinclabs.dev
+      http:
+        paths:
+          - pathType: Prefix
+            backend:
+              service:
+                name: review
+                port:
+                  number: 80
+            path: /
+  tls:
+    - hosts:
+        - review.gke.zinclabs.dev
+      secretName: review.gke.zinclabs.dev
+---
+

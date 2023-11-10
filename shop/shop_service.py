@@ -5,7 +5,9 @@ import os
 
 app = FastAPI()
 
-PRODUCT_SERVICE_URL = os.environ.get('PRODUCT_SERVICE_URL', "http://product-service:8000")
+PRODUCT_SERVICE_URL = os.environ.get(
+    'PRODUCT_SERVICE_URL', "http://product-service:8000")
+
 
 class ShopItem(BaseModel):
     id: int
@@ -16,8 +18,10 @@ class ShopItem(BaseModel):
     in_stock: int
     warehouse_location: str
 
+
 @app.get("/shop/item/{item_id}", response_model=ShopItem)
 def get_shop_item(item_id: int):
+    print("PRODUCT_SERVICE_URL: ", PRODUCT_SERVICE_URL)
     # Fetch product data from the product microservice
     try:
         response = requests.get(f"{PRODUCT_SERVICE_URL}/product/{item_id}")
@@ -25,15 +29,15 @@ def get_shop_item(item_id: int):
 
         # Enrich product data with shop-specific data
         product_data["in_stock"] = 10  # Sample in-stock quantity
-        product_data["warehouse_location"] = "A1-B2"  # Sample warehouse location
+        # Sample warehouse location
+        product_data["warehouse_location"] = "A1-B2"
 
     except requests.RequestException:
         raise HTTPException(status_code=500, detail="Error fetching product")
 
     return product_data
 
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8002)
-
-

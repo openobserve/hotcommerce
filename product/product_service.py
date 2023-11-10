@@ -5,7 +5,9 @@ import os
 
 app = FastAPI()
 
-REVIEW_SERVICE_URL = os.environ.get('REVIEW_SERVICE_URL', "http://review-service:8001")
+REVIEW_SERVICE_URL = os.environ.get(
+    'REVIEW_SERVICE_URL', "http://review-service:8001")
+
 
 class Product(BaseModel):
     id: int
@@ -14,8 +16,10 @@ class Product(BaseModel):
     review: str
     rating: int
 
+
 @app.get("/product/{product_id}", response_model=Product)
 def get_product(product_id: int):
+    print("REVIEW_SERVICE_URL: ", REVIEW_SERVICE_URL)
     sample_product = {
         "id": product_id,
         "name": "Sample Product",
@@ -36,7 +40,7 @@ def get_product(product_id: int):
 
     return sample_product
 
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8003)
-
