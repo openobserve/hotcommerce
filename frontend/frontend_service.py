@@ -11,30 +11,29 @@ templates = Jinja2Templates(directory="templates")
 
 
 @app.get("/item/{item_id}")
-def get_item(request: Request, item_id: int):
+def get_item(item_id: int):
     print("SHOP_SERVICE_URL: ", SHOP_SERVICE_URL)
     try:
         url = f"{SHOP_SERVICE_URL}/shop/item/{item_id}"
         response = requests.get(url)
         item_data = response.json()
-        return item_data
     except requests.RequestException as exc:
         print(f"Error fetching item details from URL: {url}")
         raise HTTPException(
             status_code=500, detail="Error fetching item details") from exc
 
-    return templates.TemplateResponse("item.html", {"request": request, "item": item_data})
+    return item_data
 
 
 @app.get("/hello")
-def hello(request: Request):
+def hello():
     content = {"hello": "from another world"}
     return JSONResponse(content=content)
 
 
 @app.get("/")
-def base(request: Request):
-    content = {"hello": "world"}
+def base():
+    content = {"hello": "from frontend"}
     return JSONResponse(content=content)
 
 

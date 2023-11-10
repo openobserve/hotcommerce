@@ -1,5 +1,6 @@
 import requests
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import os
 
@@ -31,12 +32,17 @@ def get_shop_item(item_id: int):
         product_data["in_stock"] = 10  # Sample in-stock quantity
         # Sample warehouse location
         product_data["warehouse_location"] = "A1-B2"
-        return product_data
 
     except requests.RequestException:
         raise HTTPException(status_code=500, detail="Error fetching product")
 
     return product_data
+
+
+@app.get("/")
+def base():
+    content = {"hello": "from shop"}
+    return JSONResponse(content=content)
 
 
 if __name__ == "__main__":

@@ -1,12 +1,15 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from fastapi.responses import JSONResponse
 
 app = FastAPI()
+
 
 class Review(BaseModel):
     product_id: int
     review: str
     rating: int  # From 1 to 5
+
 
 @app.get("/review/{product_id}", response_model=Review)
 def get_review(product_id: int):
@@ -17,7 +20,13 @@ def get_review(product_id: int):
         "rating": 5
     }
 
+
+@app.get("/")
+def base():
+    content = {"hello": "from review"}
+    return JSONResponse(content=content)
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8004)
-
