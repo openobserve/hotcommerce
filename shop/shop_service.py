@@ -31,6 +31,7 @@ def get_shop_item(item_id: int):
         product_data["in_stock"] = 10  # Sample in-stock quantity
         # Sample warehouse location
         product_data["warehouse_location"] = "A1-B2"
+        return product_data
 
     except requests.RequestException:
         raise HTTPException(status_code=500, detail="Error fetching product")

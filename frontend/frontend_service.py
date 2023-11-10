@@ -17,6 +17,7 @@ def get_item(request: Request, item_id: int):
         url = f"{SHOP_SERVICE_URL}/shop/item/{item_id}"
         response = requests.get(url)
         item_data = response.json()
+        return item_data
     except requests.RequestException as exc:
         print(f"Error fetching item details from URL: {url}")
         raise HTTPException(

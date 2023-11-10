@@ -35,6 +35,8 @@ def get_product(product_id: int):
         sample_product["review"] = review_data["review"]
         sample_product["rating"] = review_data["rating"]
 
+        return sample_product
+
     except requests.RequestException:
         raise HTTPException(status_code=500, detail="Error fetching review")
 
