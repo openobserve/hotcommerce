@@ -26,15 +26,25 @@ spec:
     metadata:
       labels:
         app: product
+      annotations:
+        sidecar.opentelemetry.io/inject: "true"
+        instrumentation.opentelemetry.io/inject-python: "true"
     spec:
       containers:
-      - name: product-container
-        image: public.ecr.aws/zinclabs/sample-product-service:latest
-        env:
-        - name: REVIEW_SERVICE_URL
-          value: "http://review-service:8001"
-        ports:
-        - containerPort: 8000
+        - name: product-container
+          image: public.ecr.aws/zinclabs/sample-product-service:latest
+          env:
+            - name: REVIEW_SERVICE_URL
+              value: "http://review-service:8001"
+          ports:
+            - containerPort: 8000
+          resources:
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
 ---
 apiVersion: v1
 kind: Service
@@ -63,12 +73,22 @@ spec:
     metadata:
       labels:
         app: review
+      annotations:
+        sidecar.opentelemetry.io/inject: "true"
+        instrumentation.opentelemetry.io/inject-python: "true"
     spec:
       containers:
-      - name: review-container
-        image: public.ecr.aws/zinclabs/sample-review-service:latest
-        ports:
-        - containerPort: 8001
+        - name: review-container
+          image: public.ecr.aws/zinclabs/sample-review-service:latest
+          ports:
+            - containerPort: 8001
+          resources:
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
 ---
 apiVersion: v1
 kind: Service
@@ -97,15 +117,25 @@ spec:
     metadata:
       labels:
         app: shop
+      annotations:
+        sidecar.opentelemetry.io/inject: "true"
+        instrumentation.opentelemetry.io/inject-python: "true"
     spec:
       containers:
-      - name: shop-container
-        image: public.ecr.aws/zinclabs/sample-shop-service:latest
-        env:
-        - name: PRODUCT_SERVICE_URL
-          value: "http://product-service:8000"
-        ports:
-        - containerPort: 8002
+        - name: shop-container
+          image: public.ecr.aws/zinclabs/sample-shop-service:latest
+          env:
+            - name: PRODUCT_SERVICE_URL
+              value: "http://product-service:8000"
+          ports:
+            - containerPort: 8002
+          resources:
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
 ---
 apiVersion: v1
 kind: Service
@@ -134,12 +164,22 @@ spec:
     metadata:
       labels:
         app: frontend
+      annotations:
+        sidecar.opentelemetry.io/inject: "true"
+        instrumentation.opentelemetry.io/inject-python: "true"
     spec:
       containers:
-      - name: frontend-container
-        image: public.ecr.aws/zinclabs/sample-frontend-service:latest
-        env:
-        - name: SHOP_SERVICE_URL
-          value: "http://shop-service:8002"
-        ports:
-        - containerPort: 8080
+        - name: frontend-container
+          image: public.ecr.aws/zinclabs/sample-frontend-service:latest
+          env:
+            - name: SHOP_SERVICE_URL
+              value: "http://shop-service:8002"
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
