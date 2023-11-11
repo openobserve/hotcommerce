@@ -1,13 +1,11 @@
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
-from fastapi.templating import Jinja2Templates
 import requests
 import os
 
 app = FastAPI()
 
-SHOP_SERVICE_URL = os.environ.get('SHOP_SERVICE_URL', "http://localhost:8081")
-templates = Jinja2Templates(directory="templates")
+SHOP_SERVICE_URL = os.environ.get('SHOP_SERVICE_URL', "http://localhost:8002")
 
 
 @app.get("/item/{item_id}")
@@ -23,12 +21,6 @@ def get_item(item_id: int):
             status_code=500, detail="Error fetching item details") from exc
 
     return item_data
-
-
-@app.get("/hello")
-def hello():
-    content = {"hello": "from another world"}
-    return JSONResponse(content=content)
 
 
 @app.get("/")

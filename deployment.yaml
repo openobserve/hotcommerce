@@ -26,7 +26,7 @@ spec:
       labels:
         app: review
       annotations:
-        instrumentation.opentelemetry.io/inject-python: "true"
+        instrumentation.opentelemetry.io/inject-python: "openobserve-collector/openobserve"
     spec:
       containers:
         - name: review
@@ -70,7 +70,7 @@ spec:
       labels:
         app: product
       annotations:
-        instrumentation.opentelemetry.io/inject-python: "true"
+        instrumentation.opentelemetry.io/inject-python: "openobserve-collector/openobserve"
     spec:
       containers:
         - name: product
@@ -118,7 +118,7 @@ spec:
       labels:
         app: shop
       annotations:
-        instrumentation.opentelemetry.io/inject-python: "true"
+        instrumentation.opentelemetry.io/inject-python: "openobserve-collector/openobserve"
     spec:
       containers:
         - name: shop
@@ -165,7 +165,7 @@ spec:
       labels:
         app: frontend
       annotations:
-        instrumentation.opentelemetry.io/inject-python: "true"
+        instrumentation.opentelemetry.io/inject-python: "openobserve-collector/openobserve"
     spec:
       containers:
         - name: frontend
