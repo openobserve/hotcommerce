@@ -1,7 +1,6 @@
 import requests
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel
 import os
 
 app = FastAPI()
@@ -10,15 +9,7 @@ REVIEW_SERVICE_URL = os.environ.get(
     'REVIEW_SERVICE_URL', "http://review-service:8001")
 
 
-class Product(BaseModel):
-    id: int
-    name: str
-    description: str
-    review: str
-    rating: int
-
-
-@app.get("/product/{product_id}", response_model=Product)
+@app.get("/product/{product_id}")
 def get_product(product_id: int):
     print("REVIEW_SERVICE_URL: ", REVIEW_SERVICE_URL)
     sample_product = {
@@ -36,8 +27,9 @@ def get_product(product_id: int):
         sample_product["review"] = review_data["review"]
         sample_product["rating"] = review_data["rating"]
 
-    except requests.RequestException:
-        raise HTTPException(status_code=500, detail="Error fetching review")
+    except requests.RequestException as exc:
+        raise HTTPException(
+            status_code=500, detail="Error fetching review") from exc
 
     return sample_product
 
