@@ -8,7 +8,8 @@ This application has been intentionally kept very simple. It has 4 microservices
 
 ## Prerequisites
 
-An existing kubernetes cluster. OpenObserve-collector installed in the cluster.
+1. An existing kubernetes cluster. 
+1. OpenObserve-collector installed in the cluster.
 
 ## Deploy the application
 
