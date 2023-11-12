@@ -4,5 +4,5 @@ HOT commerce sample microservices for demonstrating auto-instrumentation of pyth
 
 frontend -> shop -> product -> review
 
-This applicatin has been intentionally kept very simple to demonstrate the auto-instrumentation of python microservices using OpenTelemetry operator.
+This application has been intentionally kept very simple, to demonstrate the auto-instrumentation of python microservices using OpenTelemetry operator.
 
