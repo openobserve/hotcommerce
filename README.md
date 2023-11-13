@@ -24,7 +24,7 @@ port-forward the frontend service
 kubectl port-forward svc/frontend 8001:80
 ```
 
-now access the frontend service at http://localhost:8001 in your browser.
+now access the frontend service at http://localhost:8001/item/1 in your browser.
 
 ## Visualize traces
 
