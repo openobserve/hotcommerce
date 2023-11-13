@@ -19,6 +19,7 @@ phases:
     commands:
       - echo "Building Docker image..."
       - cd product
+      - ./gradlew -version
       - ./gradlew bootBuildImage -Dcodebuild.buildNumber=$CODEBUILD_BUILD_NUMBER
       - docker tag public.ecr.aws/zinclabs/sample-product-service-java:latest public.ecr.aws/zinclabs/sample-product-service-java:$CODEBUILD_BUILD_NUMBER
       - docker push public.ecr.aws/zinclabs/sample-product-service-java:latest
