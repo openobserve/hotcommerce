@@ -5,7 +5,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      java: corretto11
+      java: corretto21
     commands:
       - echo "Installing required tools..."
       # - wget https://services.gradle.org/distributions/gradle-8.4-bin.zip
