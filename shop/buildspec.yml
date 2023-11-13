@@ -13,7 +13,7 @@ phases:
   build:
     commands:
       - echo "Building Docker image..."
-      - cd shop
+      # - cd shop
       - docker build -t sample-shop-service-nodejs -f shop/Dockerfile .
       - docker tag sample-shop-service-nodejs:latest public.ecr.aws/zinclabs/sample-shop-service-nodejs:latest
       - docker tag sample-shop-service-nodejs:latest public.ecr.aws/zinclabs/sample-shop-service-nodejs:$CODEBUILD_BUILD_NUMBER
