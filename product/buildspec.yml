@@ -6,8 +6,8 @@ phases:
   install:
     commands:
       - echo "Installing required tools..."
-      - curl -LO https://corretto.aws/downloads/latest/amazon-corretto-21-x64-linux-jdk.deb
-      - sudo dpkg -i amazon-corretto-21-x64-linux-jdk.deb
+      - sudo apt-get update
+      - sudo apt-get install -y openjdk-21-jdk
       # - wget https://services.gradle.org/distributions/gradle-8.4-bin.zip
       # - unzip gradle-8.4-bin.zip
       # - export PATH=$PATH:$PWD/gradle-8.4/bin
