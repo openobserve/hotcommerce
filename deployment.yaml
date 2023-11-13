@@ -30,17 +30,17 @@ spec:
     spec:
       containers:
         - name: review
-          image: public.ecr.aws/zinclabs/sample-review-service:12
+          image: public.ecr.aws/zinclabs/sample-review-service:44
           imagePullPolicy: Always
           ports:
             - containerPort: 8004
           resources:
             limits:
               cpu: "1"
-              memory: "512Mi"
+              memory: "544Mi"
             requests:
               cpu: "100m"
-              memory: "128Mi"
+              memory: "448Mi"
 ---
 apiVersion: v1
 kind: Service
@@ -74,7 +74,7 @@ spec:
     spec:
       containers:
         - name: product
-          image: public.ecr.aws/zinclabs/sample-product-service-java:12
+          image: public.ecr.aws/zinclabs/sample-product-service-java:44
           imagePullPolicy: Always
           env:
             - name: REVIEW_SERVICE_URL
@@ -84,10 +84,10 @@ spec:
           resources:
             limits:
               cpu: "1"
-              memory: "512Mi"
+              memory: "544Mi"
             requests:
               cpu: "100m"
-              memory: "128Mi"
+              memory: "448Mi"
 
 ---
 apiVersion: v1
@@ -118,11 +118,11 @@ spec:
       labels:
         app: shop
       annotations:
-        instrumentation.opentelemetry.io/inject-python: "openobserve-collector/openobserve"
+        instrumentation.opentelemetry.io/inject-nodejs: "openobserve-collector/openobserve"
     spec:
       containers:
         - name: shop
-          image: public.ecr.aws/zinclabs/sample-shop-service:12
+          image: public.ecr.aws/zinclabs/sample-shop-service-nodejs:44
           imagePullPolicy: Always
           env:
             - name: PRODUCT_SERVICE_URL
@@ -132,10 +132,10 @@ spec:
           resources:
             limits:
               cpu: "1"
-              memory: "512Mi"
+              memory: "544Mi"
             requests:
               cpu: "100m"
-              memory: "128Mi"
+              memory: "448Mi"
 ---
 apiVersion: v1
 kind: Service
@@ -165,11 +165,12 @@ spec:
       labels:
         app: frontend
       annotations:
-        instrumentation.opentelemetry.io/inject-python: "openobserve-collector/openobserve"
+        instrumentation.opentelemetry.io/inject-go: "openobserve-collector/openobserve"
+        instrumentation.opentelemetry.io/otel-go-auto-target-exe: "/app"
     spec:
       containers:
         - name: frontend
-          image: public.ecr.aws/zinclabs/sample-frontend-service:12
+          image: public.ecr.aws/zinclabs/sample-frontend-service-go:44
           imagePullPolicy: Always
           env:
             - name: SHOP_SERVICE_URL
@@ -179,7 +180,7 @@ spec:
           resources:
             limits:
               cpu: "1"
-              memory: "512Mi"
+              memory: "543Mi"
             requests:
               cpu: "100m"
-              memory: "128Mi"
+              memory: "438Mi"
