@@ -28,10 +28,12 @@ dependencies {
 }
 
 bootBuildImage {
-    imageName = providers.systemProperty('codebuild.buildNumber')
+    imageName = providers.environmentVariable('CODEBUILD_BUILD_NUMBER')
+        .forUseAtConfigurationTime()
         .map { buildNumber -> "public.ecr.aws/zinclabs/sample-product-service-java:${buildNumber}" }
-        .getOrElse("public.ecr.aws/zinclabs/sample-product-service-java:latest")
+        .orElse("public.ecr.aws/zinclabs/sample-product-service-java:latest")
 }
+
 
 tasks.named('bootBuildImage') {
 	builder = 'paketobuildpacks/builder-jammy-base:latest'
