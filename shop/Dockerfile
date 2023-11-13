@@ -1,4 +1,5 @@
-FROM node:20 AS build-env
+# FROM node:20 AS build-env
+FROM public.ecr.aws/docker/library/node:20.0 as build-env
 COPY . /app
 WORKDIR /app
 

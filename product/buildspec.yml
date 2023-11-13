@@ -6,9 +6,9 @@ phases:
   install:
     commands:
       - echo "Installing required tools..."
-      - wget https://services.gradle.org/distributions/gradle-8.4-bin.zip
-      - unzip gradle-8.4-bin.zip
-      - export PATH=$PATH:$PWD/gradle-8.4/bin
+      # - wget https://services.gradle.org/distributions/gradle-8.4-bin.zip
+      # - unzip gradle-8.4-bin.zip
+      # - export PATH=$PATH:$PWD/gradle-8.4/bin
       - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/zinclabs
   pre_build:
     commands:
@@ -16,6 +16,8 @@ phases:
   build:
     commands:
       - echo "Building Docker image..."
+      - ls -alh
+      - pwd
       - ./gradlew bootBuildImage -Dcodebuild.buildNumber=$CODEBUILD_BUILD_NUMBER
       - docker tag public.ecr.aws/zinclabs/sample-product-service-java:latest public.ecr.aws/zinclabs/sample-product-service-java:$CODEBUILD_BUILD_NUMBER
       - docker push public.ecr.aws/zinclabs/sample-product-service-java:latest

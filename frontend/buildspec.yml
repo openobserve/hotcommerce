@@ -10,7 +10,6 @@ phases:
   pre_build:
     commands:
       - echo "Installing dependencies..."
-      # - pip3 install -r requirements.txt
   build:
     commands:
       - echo "Building Docker image..."
@@ -19,4 +18,3 @@ phases:
       - docker tag sample-frontend-service-go:latest public.ecr.aws/zinclabs/sample-frontend-service-go:$CODEBUILD_BUILD_NUMBER
       - docker push public.ecr.aws/zinclabs/sample-frontend-service-go:latest
       - docker push public.ecr.aws/zinclabs/sample-frontend-service-go:$CODEBUILD_BUILD_NUMBER
-

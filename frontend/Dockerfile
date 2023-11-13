@@ -1,5 +1,6 @@
 # Start from the Go builder image for compiling the source code
-FROM golang:1.17 as builder
+# FROM golang:1.17 as builder
+FROM public.ecr.aws/docker/library/golang:1.21.4 as builder
 
 WORKDIR /app
 
