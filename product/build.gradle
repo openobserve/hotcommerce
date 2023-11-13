@@ -32,7 +32,6 @@ bootBuildImage {
         .forUseAtConfigurationTime()
         .map { buildNumber -> "public.ecr.aws/zinclabs/sample-product-service-java:${buildNumber}" }
 				.get()
-        .orElse("public.ecr.aws/zinclabs/sample-product-service-java:latest")
 }
 
 
