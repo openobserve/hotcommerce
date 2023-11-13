@@ -7,7 +7,7 @@ phases:
     commands:
       - echo "Installing required tools..."
       - sudo apt-get update
-      - sudo apt-get install -y openjdk-21-jdk
+      - sudo apt-get install -y openjdk-17-jdk
       # - wget https://services.gradle.org/distributions/gradle-8.4-bin.zip
       # - unzip gradle-8.4-bin.zip
       # - export PATH=$PATH:$PWD/gradle-8.4/bin
