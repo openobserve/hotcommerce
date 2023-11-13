@@ -13,9 +13,9 @@ phases:
   build:
     commands:
       - echo "Building Docker image..."
-      - docker build -t sample-shop-service -f shop/Dockerfile .
-      - docker tag sample-shop-service:latest public.ecr.aws/zinclabs/sample-shop-service:latest
-      - docker tag sample-shop-service:latest public.ecr.aws/zinclabs/sample-shop-service:$CODEBUILD_BUILD_NUMBER
-      - docker push public.ecr.aws/zinclabs/sample-shop-service:latest
-      - docker push public.ecr.aws/zinclabs/sample-shop-service:$CODEBUILD_BUILD_NUMBER
+      - docker build -t sample-shop-service-nodejs -f shop/Dockerfile .
+      - docker tag sample-shop-service-nodejs:latest public.ecr.aws/zinclabs/sample-shop-service-nodejs:latest
+      - docker tag sample-shop-service-nodejs:latest public.ecr.aws/zinclabs/sample-shop-service-nodejs:$CODEBUILD_BUILD_NUMBER
+      - docker push public.ecr.aws/zinclabs/sample-shop-service-nodejs:latest
+      - docker push public.ecr.aws/zinclabs/sample-shop-service-nodejs:$CODEBUILD_BUILD_NUMBER
 

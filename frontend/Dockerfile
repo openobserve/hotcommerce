@@ -1,14 +1,27 @@
-# frontend_service.Dockerfile
-FROM public.ecr.aws/docker/library/python:3.9.18-slim-bullseye
+# Start from the Go builder image for compiling the source code
+FROM golang:1.17 as builder
 
 WORKDIR /app
 
-COPY frontend/frontend_service.py .
-COPY frontend/templates templates/
-COPY frontend/requirements.txt .
+# Copy go mod and sum files
+COPY go.mod go.sum ./
 
-RUN pip install --upgrade pip && \
-  pip install -r requirements.txt
+# Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
+RUN go mod download
 
-CMD ["uvicorn", "frontend_service:app", "--host", "0.0.0.0", "--port", "8001"]
+# Copy the source from the current directory to the Working Directory in the container
+COPY . .
 
+# Build the Go app
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
+
+# Now copy it into our distroless base image
+FROM gcr.io/distroless/base-debian12
+
+COPY --from=builder /app/main /app/main
+
+# Expose port 8001 to the outside world
+EXPOSE 8001
+
+# Command to run the executable
+ENTRYPOINT ["/app/main"]

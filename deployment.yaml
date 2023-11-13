@@ -70,11 +70,11 @@ spec:
       labels:
         app: product
       annotations:
-        instrumentation.opentelemetry.io/inject-python: "openobserve-collector/openobserve"
+        instrumentation.opentelemetry.io/inject-java: "openobserve-collector/openobserve"
     spec:
       containers:
         - name: product
-          image: public.ecr.aws/zinclabs/sample-product-service:12
+          image: public.ecr.aws/zinclabs/sample-product-service-java:12
           imagePullPolicy: Always
           env:
             - name: REVIEW_SERVICE_URL

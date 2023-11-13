@@ -2,7 +2,7 @@
 
 HOT Commerce is a sample microservices application for demonstrating auto-instrumentation of python microservices using OpenTelemetry operator.
 
-frontend -> shop -> product -> review
+frontend (go) -> shop (nodejs) -> product (java) -> review (python)
 
 This application has been intentionally kept very simple. It has 4 microservices. Each microservice has a single endpoint. The frontend service calls the shop service which in turn calls the product service which in turn calls the review service.
 

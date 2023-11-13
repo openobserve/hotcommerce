@@ -1,12 +1,11 @@
-# shop_service.Dockerfile
-FROM public.ecr.aws/docker/library/python:3.9.18-slim-bullseye
-
+FROM node:20 AS build-env
+COPY . /app
 WORKDIR /app
 
-COPY shop/shop_service.py .
-COPY shop/requirements.txt .
+RUN npm ci --omit=dev
 
-RUN pip install --upgrade pip && \
-  pip install -r requirements.txt
+FROM gcr.io/distroless/nodejs20-debian11
+COPY --from=build-env /app /app
+WORKDIR /app
+CMD ["app.js"]
 
-CMD ["uvicorn", "shop_service:app", "--host", "0.0.0.0", "--port", "8002"]
