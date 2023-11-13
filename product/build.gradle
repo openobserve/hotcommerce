@@ -30,12 +30,9 @@ dependencies {
 bootBuildImage {
     imageName = providers.environmentVariable('CODEBUILD_BUILD_NUMBER')
         .forUseAtConfigurationTime()
-        .map { buildNumber -> 
-            if (buildNumber.isPresent()) {
-                return "public.ecr.aws/zinclabs/sample-product-service-java:${buildNumber.get()}"
-            } else {
-                return "public.ecr.aws/zinclabs/sample-product-service-java:latest"
-            }
+        .map { buildNumber ->
+            buildNumber ? "public.ecr.aws/zinclabs/sample-product-service-java:${buildNumber}" 
+                        : "public.ecr.aws/zinclabs/sample-product-service-java:latest"
         }
         .get()
 }
