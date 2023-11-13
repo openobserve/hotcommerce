@@ -1,6 +1,6 @@
 # HOT commerce
 
-HOT Commerce is a sample microservices application for demonstrating auto-instrumentation of python microservices using OpenTelemetry operator.
+HOT Commerce is a sample microservices application for demonstrating auto-instrumentation of microservices using OpenTelemetry operator.
 
 frontend (go) -> shop (nodejs) -> product (java) -> review (python)
 
