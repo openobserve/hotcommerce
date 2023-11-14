@@ -26,7 +26,7 @@ spec:
       labels:
         app: price
       annotations:
-        instrumentation.opentelemetry.io/inject-python: "openobserve-collector/openobserve-dotnet"
+        instrumentation.opentelemetry.io/inject-dotnet: "openobserve-collector/openobserve-dotnet"
     spec:
       containers:
         - name: price
