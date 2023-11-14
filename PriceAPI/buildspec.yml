@@ -1,0 +1,21 @@
+# buildspec_price.yml
+
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Installing required tools..."
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/zinclabs
+  pre_build:
+    commands:
+      - echo "Installing dependencies..."
+  build:
+    commands:
+      - echo "Building Docker image..."
+      - cd PriceAPI
+      - docker build -t sample-price-service-dotnet -f Dockerfile .
+      - docker tag sample-price-service-dotnet:latest public.ecr.aws/zinclabs/sample-price-service-dotnet:latest
+      - docker tag sample-price-service-dotnet:latest public.ecr.aws/zinclabs/sample-price-service-dotnet:$CODEBUILD_BUILD_NUMBER
+      - docker push public.ecr.aws/zinclabs/sample-price-service-dotnet:latest
+      - docker push public.ecr.aws/zinclabs/sample-price-service-dotnet:$CODEBUILD_BUILD_NUMBER

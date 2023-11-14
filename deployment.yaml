@@ -1,6 +1,50 @@
 apiVersion: v1
 kind: Service
 metadata:
+  name: price
+  namespace: hotcommerce
+spec:
+  selector:
+    app: price
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8005
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: price
+  namespace: hotcommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: price
+  template:
+    metadata:
+      labels:
+        app: price
+      annotations:
+        instrumentation.opentelemetry.io/inject-python: "openobserve-collector/openobserve-dotnet"
+    spec:
+      containers:
+        - name: price
+          image: public.ecr.aws/zinclabs/sample-price-service-dotnet:1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8004
+          resources:
+            limits:
+              cpu: "1"
+              memory: "544Mi"
+            requests:
+              cpu: "100m"
+              memory: "448Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: review
   namespace: hotcommerce
 spec:
@@ -79,6 +123,8 @@ spec:
           env:
             - name: REVIEW_SERVICE_URL
               value: "http://review.hotcommerce.svc.cluster.local"
+            - name: PRICE_SERVICE_URL
+              value: "http://price.hotcommerce.svc.cluster.local"
           ports:
             - containerPort: 8003
           resources:

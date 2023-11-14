@@ -16,6 +16,8 @@ public class ProductApplication {
 
 	private static final String REVIEW_SERVICE_URL = System.getenv().getOrDefault("REVIEW_SERVICE_URL",
 			"http://localhost:8004");
+	private static final String PRICE_SERVICE_URL = System.getenv().getOrDefault("PRICE_SERVICE_URL",
+			"http://localhost:8005"); // Default URL for PriceAPI
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProductApplication.class, args);
@@ -27,6 +29,7 @@ public class ProductApplication {
 		@GetMapping("/product/{productId}")
 		public Map<String, Object> getProduct(@PathVariable int productId) {
 			System.out.println("REVIEW_SERVICE_URL: " + REVIEW_SERVICE_URL);
+			System.out.println("PRICE_SERVICE_URL: " + PRICE_SERVICE_URL);
 
 			HashMap<String, Object> sampleProduct = new HashMap<>();
 			sampleProduct.put("id", productId);
@@ -35,13 +38,18 @@ public class ProductApplication {
 
 			try {
 				RestTemplate restTemplate = new RestTemplate();
-				Map reviewData = restTemplate.getForObject(REVIEW_SERVICE_URL + "/review/" + productId, Map.class);
 
+				// Review Data
+				Map reviewData = restTemplate.getForObject(REVIEW_SERVICE_URL + "/review/" + productId, Map.class);
 				sampleProduct.put("review", reviewData.get("review"));
 				sampleProduct.put("rating", reviewData.get("rating"));
 
+				// Price Data
+				Map priceData = restTemplate.getForObject(PRICE_SERVICE_URL + "/price/" + productId, Map.class);
+				sampleProduct.put("price", priceData.get("price"));
+
 			} catch (HttpClientErrorException e) {
-				throw new RuntimeException("Error fetching review", e);
+				throw new RuntimeException("Error fetching review or price", e);
 			}
 
 			return sampleProduct;
