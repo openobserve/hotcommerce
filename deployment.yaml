@@ -164,9 +164,9 @@ spec:
     metadata:
       labels:
         app: frontend
-      # annotations:
-      #   instrumentation.opentelemetry.io/inject-go: "openobserve-collector/openobserve-go"
-      #   instrumentation.opentelemetry.io/otel-go-auto-target-exe: "/app"
+      annotations:
+        instrumentation.opentelemetry.io/inject-go: "openobserve-collector/openobserve-go"
+        instrumentation.opentelemetry.io/otel-go-auto-target-exe: "/app"
     spec:
       containers:
         - name: frontend
