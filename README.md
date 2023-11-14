@@ -2,6 +2,7 @@
 
 HOT Commerce is a collection of microservices demonstrating auto-instrumentation of microservices using OpenTelemetry operator in a kubernetes environment.
 
+
 ```
                                                  /-> review (python)
                                                 /
@@ -36,6 +37,8 @@ now access the frontend service at http://localhost:8001/item/1 in your browser.
 ## Visualize traces
 
 Open traces UI in OpenObserve. You should see traces for the requests made to the frontend service along with other dependent services.
+
+![screenshots](./screenshots/auto_instrumentation.png)
 
 ## Automatic instrumentation
 
