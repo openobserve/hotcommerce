@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: review
-          image: public.ecr.aws/zinclabs/sample-review-service:49
+          image: public.ecr.aws/zinclabs/sample-review-service:51
           imagePullPolicy: Always
           ports:
             - containerPort: 8004
@@ -74,7 +74,7 @@ spec:
     spec:
       containers:
         - name: product
-          image: public.ecr.aws/zinclabs/sample-product-service-java:49
+          image: public.ecr.aws/zinclabs/sample-product-service-java:51
           imagePullPolicy: Always
           env:
             - name: REVIEW_SERVICE_URL
@@ -122,7 +122,7 @@ spec:
     spec:
       containers:
         - name: shop
-          image: public.ecr.aws/zinclabs/sample-shop-service-nodejs:49
+          image: public.ecr.aws/zinclabs/sample-shop-service-nodejs:51
           imagePullPolicy: Always
           env:
             - name: PRODUCT_SERVICE_URL
@@ -170,7 +170,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: public.ecr.aws/zinclabs/sample-frontend-service-go:49
+          image: public.ecr.aws/zinclabs/sample-frontend-service-go:51
           imagePullPolicy: Always
           env:
             - name: SHOP_SERVICE_URL
