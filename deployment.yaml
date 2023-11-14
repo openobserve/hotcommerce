@@ -9,7 +9,7 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8005
+      targetPort: 80
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -30,10 +30,10 @@ spec:
     spec:
       containers:
         - name: price
-          image: public.ecr.aws/zinclabs/sample-price-service-dotnet:1
+          image: public.ecr.aws/zinclabs/sample-price-service-dotnet:3
           imagePullPolicy: Always
           ports:
-            - containerPort: 8004
+            - containerPort: 80
           resources:
             limits:
               cpu: "1"
@@ -118,7 +118,7 @@ spec:
     spec:
       containers:
         - name: product
-          image: public.ecr.aws/zinclabs/sample-product-service-java:51
+          image: public.ecr.aws/zinclabs/sample-product-service-java:53
           imagePullPolicy: Always
           env:
             - name: REVIEW_SERVICE_URL
