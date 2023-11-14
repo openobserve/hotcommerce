@@ -119,7 +119,7 @@ spec:
       containers:
         - name: product
           image: public.ecr.aws/zinclabs/sample-product-service-java:53
-          imagePullPolicy: Always
+          imagePullPolicy: Always 
           env:
             - name: REVIEW_SERVICE_URL
               value: "http://review.hotcommerce.svc.cluster.local"
