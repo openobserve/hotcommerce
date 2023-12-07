@@ -29,7 +29,7 @@ kubectl apply -f deployment.yaml
 port-forward the frontend service
 
 ```
-kubectl port-forward svc/frontend 8001:80
+kubectl -n hotcommerce port-forward svc/frontend 8001:80
 ```
 
 now access the frontend service at http://localhost:8001/item/1 in your browser. This will kick in the requests and send the traces to OpenObserve.
