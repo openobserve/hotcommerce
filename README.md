@@ -23,7 +23,7 @@ This application has been intentionally kept very simple. It has 5 microservices
 
 ```
 kubectl create ns hotcommerce
-kubectl apply -f deployment.yaml
+kubectl apply -f https://raw.githubusercontent.com/openobserve/hotcommerce/main/deployment.yaml
 ```
 
 port-forward the frontend service
